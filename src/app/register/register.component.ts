@@ -15,17 +15,31 @@ export class RegisterComponent {
 
   constructor(
     private _authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
+    private _router: Router,
+    private _fb: FormBuilder
     ) {
       this.createForm();
      }
 
   createForm() {
-    this.registerForm = this.fb.group({
+    this.registerForm = this._fb.group({
       email: ['', Validators.required ],
       password: ['', Validators.required]
     });
+  }
+
+  tryFacebookLogin() {
+    this._authService.doFacebookLogin()
+    .then(res => {
+      this._router.navigate(['/user']);
+    }, err => console.log(err));
+  }
+
+  tryGoogleLogin() {
+    this._authService.doGoogleLogin()
+    .then(res => {
+      this._router.navigate(['/user']);
+    }, err => console.log(err));
   }
 
   tryRegister(value) {
