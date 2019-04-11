@@ -13,6 +13,7 @@ export class UserService {
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
       const user = firebase.auth().onAuthStateChanged((theUser) => {
+        console.log(theUser, 'USER');
         if (theUser) {
           resolve(theUser);
         } else {
@@ -26,9 +27,9 @@ export class UserService {
     return new Promise<any>((resolve, reject) => {
       const user = firebase.auth().currentUser;
       user.updateProfile({
-        displayName: value.name,
-        photoURL: user.photoURL
+        displayName: value.name
       }).then(res => {
+        console.log(this.getCurrentUser());
         resolve(res);
       }, err => reject(err));
     });

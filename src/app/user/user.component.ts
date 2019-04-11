@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { UserService } from '../core/user.service';
 import { AuthService } from '../core/auth.service';
 import { ActivatedRoute, RouteConfigLoadStart } from '@angular/router';
@@ -6,13 +6,12 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseUserModel } from '../core/user.model';
 
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnChanges {
   user: FirebaseUserModel = new FirebaseUserModel;
   profileForm: FormGroup;
 
@@ -23,6 +22,10 @@ export class UserComponent implements OnInit {
     private _location: Location,
     private _fb: FormBuilder
   ) { }
+
+  ngOnChanges() {
+    console.log(this.user, 'onchanges');
+  }
 
   ngOnInit(): void {
     this._route.data.subscribe(routeData => {
